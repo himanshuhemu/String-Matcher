@@ -1,8 +1,10 @@
 from timeit import default_timer as timer
 
+#Functions are for search a pattern "pat" in a string "txt"
+
 def NaiveSearch(pat, txt): 
     lst=[]
-    start = timer()
+    start = timer() #Initial time
     M = len(pat) 
     N = len(txt) 
     i = 0
@@ -22,31 +24,22 @@ def NaiveSearch(pat, txt):
             i = i + 1
         else: 
             i = i+ j    # slide the pattern by j 
-    end = timer()
+    end = timer()   #Final Time
     #print(end)
     tm=end-start
     t="%.8f"%tm
     #t=round(tm,6)
     return t,lst        
-    # Driver program to test the above function 
-#txt = "ABCEABCDABCEABCD"
-#pat = "ABCD"
-#tm,lst=NaiveSearch(pat, txt)
-#print(tm)
-#print(lst) 
 
 def RabinSearch(pat, txt): 
     start1 = timer()
     lst=[]
     q = 101 # A prime number 
     d = 256
-    M = len(pat) 
-    N = len(txt) 
-    i = 0
-    j = 0
+    M,N = len(pat), len(txt) 
+    i,j,h = 0,0,1
     p = 0    # hash value for pattern 
-    t = 0    # hash value for txt 
-    h = 1
+    t = 0    # hash value for txt
   
     # The value of h would be "pow(d, M-1)%q" 
     for i in range(M-1): 
@@ -82,30 +75,19 @@ def RabinSearch(pat, txt):
             # We might get negative values of t, converting it to 
             # positive  
             if t < 0: 
-                t = t+q 
+                t += q 
     end1=timer()
     tim=end1-start1
     ntm="%.8f"%tim
     #ntm=round(tim,6)
     return ntm,lst
             
-# Driver program to test the above function 
-#txt = "ABCEABCDABCEABCD"
-#pat = "ABCD"
-#q = 101 # A prime number 
-#search(pat,txt) 
-
-
-
-
-
 
 # Python program for KMP Algorithm 
 def KMPSearch(pat, txt): 
     start=timer()
     lst=[]
-    M = len(pat) 
-    N = len(txt) 
+    M,N = len(pat),len(txt) 
   
     # create lps[] that will hold the longest prefix suffix  
     # values for pattern 
@@ -162,7 +144,12 @@ def computeLPSArray(pat, M, lps):
                 lps[i] = 0
                 i += 1
   
+# Driver program to test the above functions
 #txt = "ABCEABCDABCEABCD"
 #pat = "ABCD"
+#tm,lst=NaiveSearch(pat, txt)
+#print(tm)
+#print(lst) 
+#q = 101 # A prime number 
+#search(pat,txt) 
 #KMPSearch(pat, txt) 
-  
